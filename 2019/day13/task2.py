@@ -92,7 +92,10 @@ def main():
     arcade = threading.Thread(target=intcode, args=[memory, inputQ, outputQ])
     arcade.start()
 
-    tiles = collections.defaultdict(lambda: 0)
+    size = (45, 23)
+    tiles = [[0 for _ in range(size[0])] for _ in range(size[1])]
+    ball = (20, 18)
+    xPaddle = 22
     score = 0
     counter = 0
     while arcade.is_alive() or not outputQ.empty():
@@ -103,17 +106,17 @@ def main():
                 y = outputQ.get()
                 tile = outputQ.get()
                 if x != -1:
-                    tiles[(x, y)] = tile
+                    tiles[y][x] = tile
                 else:
-                    counter += 1
                     score = tile
-                    # print(f"{counter}: {score}")
+                    print(f"{counter}: {score}")
+                    counter += 1
 
-            if counter > -1:
+            if counter > 300:
                 os.system("cls")
-                for j in range(23):
-                    for i in range(45):
-                        tile = tiles[(i, j)]
+                for j in range(size[1]):
+                    for i in range(size[0]):
+                        tile = tiles[j][i]
                         if tile:
                             print(tile, end="")
                         else:
@@ -128,15 +131,17 @@ def main():
             # else:
             #     inputQ.put(0)
 
-            xBall = 0
-            xPaddle = 0
-            for (x, y), value in tiles.items():
-                if value == 3:
-                    xPaddle = x
-                elif value == 4:
-                    xBall = x
+            for y in range(ball[1] - 1, ball[1] + 2):
+                for x in range(ball[0] - 1, ball[0] + 2):
+                    if tiles[y][x] == 4:
+                        ball = (x, y)
 
-            inputQ.put(xBall - xPaddle)
+            for x in range(xPaddle - 1, xPaddle + 2):
+                if tiles[21][x] == 3:
+                    xPaddle = x
+
+            dif = ball[0] - xPaddle
+            inputQ.put(dif)
 
     arcade.join()
 
