@@ -4,11 +4,11 @@ import queue
 import re
 import threading
 
-flag = False
+drawRequest = False
 
 
 def intcode(mem, inputQ: queue.SimpleQueue, outputQ: queue.SimpleQueue):
-    global flag
+    global drawRequest
     i = 0
     relBase = 0
     while True:
@@ -28,7 +28,7 @@ def intcode(mem, inputQ: queue.SimpleQueue, outputQ: queue.SimpleQueue):
         if op == 3 or op == 4 or op == 9:
             # Input
             if op == 3:
-                flag = True
+                drawRequest = True
                 mem[indexP1] = inputQ.get()
             # Output
             elif op == 4:
@@ -80,7 +80,7 @@ def intcode(mem, inputQ: queue.SimpleQueue, outputQ: queue.SimpleQueue):
 
 
 def main():
-    global flag
+    global drawRequest
     file = open("input", "r")
     program = [int(x) for x in re.findall(r"-?\d+", file.readline())]
     program[0] = 2
@@ -99,8 +99,8 @@ def main():
     score = 0
     counter = 0
     while arcade.is_alive() or not outputQ.empty():
-        if flag or not arcade.is_alive():
-            flag = False
+        if drawRequest or not arcade.is_alive():
+            drawRequest = False
             while not outputQ.empty():
                 x = outputQ.get()
                 y = outputQ.get()
