@@ -90,15 +90,14 @@ def main():
     oxygenSystem = (0, 0)
     currentWalkingDirection = 0
     walkingDirections = (1, 4, 2, 3)
-    x = 0
-    y = 0
+    x, y = 0, 0
     ship = collections.defaultdict(lambda: 0)
     ship[(x, y)] = 1
     startingPosition = (0, 0)
 
     # 0 : hit wall
     # 1 : moved in direction
-    # 2 : has moved and found oxygen system
+    # 2 : moved and found oxygen system
 
     # 1 : up
     # 2 : down
@@ -171,9 +170,7 @@ def main():
     printLab = 1 if input() == "y" else 0
     if printLab:
         printLabyrinth(ship, minX, maxX, minY, maxY)
-    
-    
-    
+
     print("Print Oxygen Spreading? (y/n)")
     printLab = 1 if input() == "y" else 0
 
