@@ -109,19 +109,19 @@ def main():
                     tiles[y][x] = tile
                 else:
                     score = tile
-                    print(f"{counter}: {score}")
+                    # print(f"{counter}: {score}")
                     counter += 1
 
-            if counter > 300:
-                os.system("cls")
-                for j in range(size[1]):
-                    for i in range(size[0]):
-                        tile = tiles[j][i]
-                        if tile:
-                            print(tile, end="")
-                        else:
-                            print(" ", end="")
-                    print("")
+            # if counter > 300:
+            #     os.system("cls")
+            #     for j in range(size[1]):
+            #         for i in range(size[0]):
+            #             tile = tiles[j][i]
+            #             if tile:
+            #                 print(tile, end="")
+            #             else:
+            #                 print(" ", end="")
+            #         print("")
 
             # inp = input().strip()
             # if inp == "a":
