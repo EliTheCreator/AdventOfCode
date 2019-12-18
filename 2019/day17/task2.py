@@ -109,18 +109,9 @@ def main():
     dustCollected = []
     while not outputQ.empty():
         dustCollected.append(outputQ.get())
-    
 
-    # print(dustCollected)
-    # print("".join(dustCollected))
-    print("".join([chr(x) for x in dustCollected[::-1]]))
+    # print("".join([chr(x) for x in dustCollected[::-1]]))
     print(dustCollected[-1])
-
-    # dustCollected = []
-    # while not outputQ.empty():
-    #     dustCollected.append(outputQ.get())
-
-    # print(sum(dustCollected))
 
 
 if __name__ == "__main__":
