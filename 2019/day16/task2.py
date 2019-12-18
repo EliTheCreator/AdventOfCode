@@ -3,45 +3,27 @@ import re
 
 def main():
     file = open("input", "r")
-    sequence = [int(x) for x in re.findall(r"\d", file.readline())] + [0]
+    sequence = [int(x) for x in re.findall(r"\d", file.readline())]
     file.close()
 
-    # outFile = open("output", "w")
+    seqLength = len(sequence)
+    offset = int("".join(str(x) for x in sequence[:7]))
 
-    pattern = [0, 1, 0, -1]
+    sequence = sequence[offset % seqLength:] + \
+        (10000 - (offset//seqLength) - 1) * sequence + [0]
 
-    # for _ in range(100):
-    #     newSeqence = [0 for _ in range(len(sequence))]
+    for _ in range(100):
+        newSeqence = [0 for _ in range(len(sequence))]
 
-    #     for i in range(len(sequence)//2, len(sequence) - 1)[::-1]:
-    #         newSeqence[i] = sequence[i] + newSeqence[i + 1]
+        for i in reversed(range(len(sequence) - 1)):
+            newSeqence[i] = sequence[i] + newSeqence[i + 1]
 
-    #     for j in range(1, len(sequence) + 1):
-    #         # for i, num in enumerate(sequence):
-    #         i = 0
-    #         while i < len(sequence):
-    #             num = sequence[i]
-    #             patternIndex = ((i+1)//j) % 4
-    #             if pattern[patternIndex] != 0:
-    #                 newSeqence[j-1] += num * pattern[patternIndex]
-    #                 i += 1
-    #             else:
-    #                 # print("jump")
-    #                 # print(i)
-    #                 i += j
+        for i in range(seqLength):
+            newSeqence[i] %= 10
 
-    #     for i, num in enumerate(newSeqence):
-    #         newSeqence[i] = abs(num) % 10
-    #     sequence = newSeqence
+        sequence = newSeqence
 
-    # print("".join([str(x) for x in sequence[:8]]))
-
-    for j in range(1, len(sequence) + 1):
-        for i in range(len(sequence)):
-            print(pattern[((i+1)//j) % 4], end='')
-            # outFile.write(str(pattern[((i+1)//j) % 4]))
-        print("")
-        # outFile.write("\n")
+    print("".join(str(x) for x in sequence[:8]))
 
 
 if __name__ == "__main__":
