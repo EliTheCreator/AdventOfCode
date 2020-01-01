@@ -3,7 +3,7 @@ from math import inf
 
 
 def getGraphML(graph):
-    outputFile = open("graph2.graphml", "w")
+    outputFile = open("graph5.graphml", "w")
 
     outputFile.write('<?xml version="1.0" encoding="UTF-8"?>\n')
     outputFile.write(
@@ -11,7 +11,7 @@ def getGraphML(graph):
     outputFile.write('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  ')
     outputFile.write(
         'xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">\n')
-    outputFile.write('  <graph id="G" edgedefault="undirected">\n')
+    outputFile.write('  <graph id="G" edgedefault="directed">\n')
 
     for fromNode, toNodes in graph.items():
         outputFile.write(f'    <node id="{fromNode}"/>\n')
@@ -165,6 +165,8 @@ def main():
     graph = {"0@": set()}
     genGraph(baseGraph, graph, "0@")
 
+    getGraphML(graph)
+
     distances = {x: inf for x in graph.keys()}
     previous = {x: None for x in graph.keys()}
     vertexSet = set(graph.keys())
@@ -182,8 +184,9 @@ def main():
                 distances[neighbour] = alt
                 previous[neighbour] = current
 
+    lastLevel = 2**(len(keys)) - 1
     # 67108863 = 2**26 - 1
-    print(min([distances[str(67108863) + s] for s in string.ascii_lowercase]))
+    print(min([distances[str(lastLevel) + s] for s in keys.keys()]))
 
 
 if __name__ == "__main__":
