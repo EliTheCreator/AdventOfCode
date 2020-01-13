@@ -1,0 +1,34 @@
+south
+south
+take manifold
+north
+take fuel cell
+north
+north
+take candy cane
+south
+west
+take mutex
+south
+south
+take coin
+west
+take dehydrated water
+south
+take prime number
+north
+east
+north
+east
+take cake
+north
+west
+south
+drop manifold
+drop fuel cell
+drop candy cane
+drop mutex
+drop coin
+drop dehydrated water
+drop prime number
+drop cake
