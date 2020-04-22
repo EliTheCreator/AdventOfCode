@@ -8,10 +8,10 @@ def main():
 
     totSum = 0
     for x in lines:
-        x = int(x/3) - 2
+        x = x // 3 - 2
         while x > 0:
             totSum += x
-            x = int(x/3) - 2
+            x = x // 3 - 2
     file.close()
 
     print(totSum)
