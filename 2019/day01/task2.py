@@ -4,17 +4,16 @@ import re
 
 def main():
     file = open("input", "r")
-    lines = [int(x) for x in file]
-
-    totSum = 0
-    for x in lines:
-        x = x // 3 - 2
-        while x > 0:
-            totSum += x
-            x = x // 3 - 2
+    lines = [int(x) // 3 - 2 for x in file]
     file.close()
 
-    print(totSum)
+    sum = 0
+    for x in lines:
+        while x > 0:
+            sum += x
+            x = x // 3 - 2
+
+    print(sum)
 
 
 main()

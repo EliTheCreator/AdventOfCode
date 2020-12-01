@@ -165,8 +165,6 @@ def main():
     graph = {"0@": set()}
     genGraph(baseGraph, graph, "0@")
 
-    getGraphML(graph)
-
     distances = {x: inf for x in graph.keys()}
     previous = {x: None for x in graph.keys()}
     vertexSet = set(graph.keys())
