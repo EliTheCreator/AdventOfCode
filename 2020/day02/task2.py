@@ -9,13 +9,8 @@ def main():
     file.close()
 
     pw_counter = 0
-    for (lower, upper), (ltr, pw) in lines:
-        ltr_counter = 0
-        for l in pw:
-            if l == ltr:
-                ltr_counter += 1
-
-        if lower <= ltr_counter & ltr_counter <= upper:
+    for (pos1, pos2), (ltr, pw) in lines:
+        if (ltr == pw[pos1-1]) ^ (ltr == pw[pos2-1]):
             pw_counter += 1
 
     print(pw_counter)
