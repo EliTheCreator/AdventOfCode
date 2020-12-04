@@ -19,17 +19,17 @@ def main():
                 return False
 
             if key == "byr":
-                if 1920 <= year & year <= 2002:
+                if 1920 <= year <= 2002:
                     return True
                 else:
                     return False
             elif key == "iyr":
-                if 2010 <= year & year <= 2020:
+                if 2010 <= year <= 2020:
                     return True
                 else:
                     return False
             else:
-                if 2020 <= year & year <= 2030:
+                if 2020 <= year <= 2030:
                     return True
                 else:
                     return False
@@ -40,9 +40,9 @@ def main():
                 return False
             unit = value[-2:]
 
-            if (unit == "cm") & (150 <= size) & (size <= 193):
+            if unit == "cm" and 150 <= size <= 193:
                 return True
-            elif (unit == "in") & (59 <= size) & (size <= 73):
+            elif unit == "in" and 59 <= size <= 73:
                 return True
             else:
                 return False
