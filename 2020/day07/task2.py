@@ -13,19 +13,18 @@ def main():
     graph = defaultdict(lambda: set(), [])
     for parent, children in rules:
         for child in children:
-            _, child_name = child.split(" ", maxsplit=1)
-            graph[child_name].add(parent)
+            count, child_name = child.split(" ", maxsplit=1)
+            graph[parent].add((child_name, int(count)))
 
-    visited = set()
-    toVisit = deque(["shiny gold"])
-    while len(toVisit):
-        currentNode = toVisit.popleft()
-        if currentNode not in visited:
-            visited.add(currentNode)
-            for childNode in graph[currentNode]:
-                toVisit.append(childNode)
+    def countBags(startNode):
+        localSum = sum([count + count*countBags(childNode)
+                        for childNode, count in graph[startNode]])
+        if localSum:
+            return localSum
+        else:
+            return 0
 
-    print(len(visited) - 1)
+    print(countBags("shiny gold"))
 
 
 if __name__ == "__main__":
