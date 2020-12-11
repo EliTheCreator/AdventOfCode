@@ -1,6 +1,5 @@
 from copy import deepcopy
 from hashlib import md5
-from time import sleep
 
 
 def check(lookup, i, j, iOffset, jOffset):
