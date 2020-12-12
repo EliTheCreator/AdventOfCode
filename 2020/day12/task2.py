@@ -17,17 +17,15 @@ def main():
         elif action == "W":
             wy -= value
         elif action == "L" or action == 'R':
+            if action == 'R':
+                value = 360 - value
             wx_old = wx
             wy_old = wy
             direction = value // 90
             sin = (direction - 2) * ((direction - 2) % 2)
             cos = (direction - 3) * ((direction - 3) % 2)
-            if action == 'L':
-                wx = cos * wx_old + -1 * sin * wy_old
-                wy = sin * wx_old + cos * wy_old
-            else:
-                wx = cos * wx_old + sin * wy_old
-                wy = -1 * sin * wx_old + cos * wy_old
+            wx = (cos * wx_old) + (-1 * sin * wy_old)
+            wy = (sin * wx_old) + (cos * wy_old)
         elif action == "F":
             sx += wx * value
             sy += wy * value
