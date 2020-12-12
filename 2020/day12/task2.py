@@ -1,3 +1,5 @@
+import cmath
+
 
 def main():
     file = open("input", "r")
@@ -5,32 +7,28 @@ def main():
                     for line in file.readlines()]
     file.close()
 
-    wx, wy = 1, 10
-    sx, sy = 0, 0
+    waypoint = 10 + 1j
+    ship = 0j
     for action, value in instructions:
         if action == "N":
-            wx += value
+            waypoint += value * 1j
         elif action == "S":
-            wx -= value
+            waypoint -= value * 1j
         elif action == "E":
-            wy += value
+            waypoint += value + 0j
         elif action == "W":
-            wy -= value
-        elif action == "L" or action == 'R':
-            if action == 'R':
+            waypoint -= value + 0j
+        elif action == "L" or action == "R":
+            if action == 'L':
                 value = 360 - value
-            wx_old = wx
-            wy_old = wy
             direction = value // 90
             sin = (direction - 2) * ((direction - 2) % 2)
             cos = (direction - 3) * ((direction - 3) % 2)
-            wx = (cos * wx_old) + (-1 * sin * wy_old)
-            wy = (sin * wx_old) + (cos * wy_old)
+            waypoint *= complex(cos, sin)
         elif action == "F":
-            sx += wx * value
-            sy += wy * value
+            ship += value * waypoint
 
-    print(abs(sx) + abs(sy))
+    print(abs(int(ship.real)) + abs(int(ship.imag)))
 
 
 if __name__ == "__main__":
