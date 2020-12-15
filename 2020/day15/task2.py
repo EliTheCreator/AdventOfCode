@@ -11,7 +11,7 @@ def main():
         turns[n] = i
 
     lastSpoken = data[-1]
-    for turn in range(len(data), 2020):
+    for turn in range(len(data), 30000000):
         dif = turn - turns[lastSpoken]
         turns[lastSpoken] = turn
         lastSpoken = dif
