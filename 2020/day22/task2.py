@@ -9,6 +9,8 @@ def main():
     p1 = deque([int(x) for x in re.findall(r"\d+", p1_raw)][1:])
     p2 = deque([int(x) for x in re.findall(r"\d+", p2_raw)][1:])
 
+    # dp = {}
+
     def recursive_combat(p1, p2):
         p1_configs = set()
         p2_configs = set()
@@ -20,6 +22,9 @@ def main():
             for i, v in enumerate(p2):
                 p2_config += 10**i * v
 
+            # if (p1_config, p2_config) in dp:
+            #     return dp[(p1_config, p2_config)]
+
             if p1_config in p1_configs or p2_config in p2_configs:
                 p2 = []
                 break
@@ -27,8 +32,13 @@ def main():
                 p1_configs.add(p1_config)
                 p2_configs.add(p2_config)
 
+            max_p1 = max(p1)
+            if max_p1 > max(p2) and max_p1 > len(p1) + len(p2):
+                return 0
+
             card_p1 = p1.popleft()
             card_p2 = p2.popleft()
+
             if card_p1 > len(p1) or card_p2 > len(p2):
                 if card_p1 > card_p2:
                     p1.append(card_p1)
@@ -47,8 +57,10 @@ def main():
                     p1.append(card_p2)
 
         if p1:
+            # dp[(p1_config, p2_config)] = 0
             return 0
         else:
+            # dp[(p1_config, p2_config)] = 1
             return 1
 
     recursive_combat(p1, p2)
