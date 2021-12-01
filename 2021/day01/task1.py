@@ -1,5 +1,3 @@
-import re
-
 
 def main():
     with open("input", "r") as file:
