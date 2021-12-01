@@ -2,9 +2,8 @@ import re
 
 
 def main():
-    file = open("input", "r")
-
-    file.close()
+    with open("input", "r") as file:
+        data = [line for line in file.readlines()]
 
 
 if __name__ == "__main__":
