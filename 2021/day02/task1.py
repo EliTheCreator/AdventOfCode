@@ -10,14 +10,15 @@ def main():
     depth = 0
 
     for (direction, distance) in data:
-        if direction == "forward":
-            horizontal_pos += distance
-        elif direction == "up":
-            depth -= distance
-        elif direction == "down":
-            depth += distance
-        else:
-            print("Unknown direction encountered")
+        match direction:
+            case "forward":
+                horizontal_pos += distance
+            case "up":
+                depth -= distance
+            case "down":
+                depth += distance
+            case _:
+                print("Unknown direction encountered")
 
     print(horizontal_pos * depth)
 

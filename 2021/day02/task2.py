@@ -11,15 +11,16 @@ def main():
     aim = 0
 
     for (direction, distance) in data:
-        if direction == "forward":
-            horizontal_pos += distance
-            depth += aim * distance
-        elif direction == "up":
-            aim -= distance
-        elif direction == "down":
-            aim += distance
-        else:
-            print("Unknown direction encountered")
+        match direction:
+            case "forward":
+                horizontal_pos += distance
+                depth += aim * distance
+            case "up":
+                aim -= distance
+            case "down":
+                aim += distance
+            case _:
+                print("Unknown direction encountered")
 
     print(horizontal_pos * depth)
 
