@@ -50,6 +50,9 @@ class Constant(Operand):
     def get_val(self) -> int:
         return self.value
 
+    def set_val(self, value):
+        self.value = value
+
 
 class Wire(Operand):
     def __init__(self, graph: Graph, name: str):
@@ -130,6 +133,16 @@ def main():
                 case _ as ins:
                     print(f"Unknown instruction {ins} encountered")
 
+    simulate(graph)
+    firstRoundA = graph.wires["a"]
+    for node in graph.nodes:
+        if node.name == "44430FOREWARDb":
+            list(node.comingIn)[0].set_val(firstRoundA)
+    simulate(graph)
+    print(graph.wires["a"])
+
+
+def simulate(graph: Graph):
     for _ in range(len(graph.nodes)):
         for node in graph.nodes:
             match node.op:
@@ -165,8 +178,6 @@ def main():
                         wire.set_val(value)
                 case _:
                     print("error")
-
-    print(graph.wires["a"])
 
 
 if __name__ == "__main__":
