@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import Counter
 
 
 def main():
@@ -7,32 +7,19 @@ def main():
 
     transitions = dict((line.strip().split(" -> ")
                         for line in transitionsRaw.split("\n")))
-
-    pairTransitions = {}
-    for pair in set(transitions.keys()):
-        middle = transitions[pair]
-        pairTransitions[pair] = (pair[0] + middle, middle + pair[1])
-
-    currentPairs = defaultdict(lambda: 0)
-    for i in range(len(template) - 1):
-        currentPairs[template[i:i+2]] += 1
-
-    nextPairs = defaultdict(lambda: 0)
-
-    letterCount = dict([(l, 0) for l in set(transitions.values())])
-    for l in template:
-        letterCount[l] += 1
+    letters = Counter(template)
+    pairs = Counter(map(lambda x: x[0] + x[1], zip(template, template[1:])))
 
     for _ in range(40):
-        for pair, count in currentPairs.items():
-            for nextPair in pairTransitions[pair]:
-                nextPairs[nextPair] += count
-            letterCount[transitions[pair]] += count
+        nextPairs = Counter("")
+        for (left, right), count in pairs.items():
+            middle = transitions[left + right]
+            letters[middle] += count
+            nextPairs[left + middle] += count
+            nextPairs[middle + right] += count
+        pairs = nextPairs
 
-        currentPairs = nextPairs
-        nextPairs = defaultdict(lambda: 0)
-
-    print(max(letterCount.values()) - min(letterCount.values()))
+    print(max(letters.values()) - min(letters.values()))
 
 
 if __name__ == "__main__":
