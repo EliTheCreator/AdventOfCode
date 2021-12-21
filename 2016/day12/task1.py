@@ -2,7 +2,7 @@ from collections import defaultdict
 
 
 def main():
-    with open("/home/yurigagarin/AdventOfCode/2016/day12/input", "r") as file:
+    with open("input", "r") as file:
         instructions = [line.strip().split(" ") for line in file.readlines()]
 
     regNames = "abcd"
