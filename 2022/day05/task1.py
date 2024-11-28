@@ -3,27 +3,27 @@ import re
 
 def main():
     with open("input", "r") as file:
-        stacks_raw, moves_raw = file.read().split("\n\n")
+        stacksRaw, movesRaw = file.read().split("\n\n")
 
-    stack_lines = stacks_raw.split("\n")
-    stack_count = int(stack_lines[-1].split(" ")[-2].strip())
+    stackLines = stacksRaw.split("\n")
+    stackCount = int(stackLines[-1].split(" ")[-2].strip())
 
     stacks: dict[list[str]] = {}
-    for stack_num in range(1, stack_count+1):
-        stacks[stack_num] = []
+    for stackNum in range(1, stackCount+1):
+        stacks[stackNum] = []
 
-    for line in reversed(stack_lines[:-1]):
-        for stack_num, pos in enumerate(range(1, len(line), 4), 1):
+    for line in reversed(stackLines[:-1]):
+        for stackNum, pos in enumerate(range(1, len(line), 4), 1):
             if line[pos] != ' ':
-                stacks[stack_num].append(line[pos])
+                stacks[stackNum].append(line[pos])
 
-    moves = [[int(x) for x in re.findall(r"\d+", line)] for line in moves_raw.split("\n")]
+    moves = [[int(x) for x in re.findall(r"\d+", line)] for line in movesRaw.split("\n")]
 
-    for count, from_num, to_num in moves:
+    for count, fromNum, toNum in moves:
         for _ in range(count):
-            stacks[to_num].append(stacks[from_num].pop())
+            stacks[toNum].append(stacks[fromNum].pop())
 
-    print("".join([stacks[num][-1] for num in range(1, stack_count+1)]))
+    print("".join([stacks[num][-1] for num in range(1, stackCount+1)]))
 
 
 if __name__ == "__main__":
